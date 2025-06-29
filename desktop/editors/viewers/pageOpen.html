@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>I detect if another one of me is open</title>
+  </head>
+  <body>
+    <h1 id="msg">No</h1>
+    <script type="text/javascript">
+      var msg = document.querySelector("#msg")
+      // Broadcast that you're opening a page.
+      localStorage.openpages = Date.now();
+      var onLocalStorageEvent = function(e){
+        if(e.key == "openpages"){
+          // Listen if anybody else is opening the same page!
+          localStorage.page_available = Date.now();
+          msg.innerHTML = "Another page open"
+        }
+        if(e.key == "page_available"){
+          msg.innerHTML = "There already is an open page";
+        }
+      };
+      window.addEventListener('storage', onLocalStorageEvent, false);
+    </script>
+  </body>
+</html>

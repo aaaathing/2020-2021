@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<title>Stuff mom ain't get mad</title>
+<meta charset="UTF-8">
+<style>
+body,html{
+  padding:0px;
+  margin:0px;
+  width:100%;
+  height:100%;
+}
+body{
+  font-family:"Microsoft YaHei";
+  min-width:500px;
+}
+#parentContainer{
+  margin-left:15%;
+  margin-right:15%;
+  max-width:70%;
+  background:lightblue;
+}
+@media screen and (max-width: 700px) {
+  #parentContainer{
+    margin:0px;
+    max-width:100%;
+  }
+}
+#innerContainer{
+  border:5px solid blue;
+  padding:8px;
+}
+tit{
+  font-size:50px;
+  text-align:center;
+  display:block;
+}
+#text c{
+  font-size:20px;
+}
+c{
+transition:0.4s;
+}
+button{
+  font-size:20px;
+  background:#39d;
+  padding:10px;
+  width:100px;
+  border-radius:10px;
+  border:5px solid lightblue;
+  cursor:pointer;
+  float:right;
+}
+button:hover{border:5px double lightblue;}
+#storySelect{
+  float:left;
+}
+</style>
+
+<script src="chinese_storys.txt"></script>
+<script src="chinese.js"></script>
+
+</head>
+<body>
+
+<div id="parentContainer">
+  <div id="innerContainer">
+    
+    <select id="storySelect"></select>
+
+    <button id="stopBtn">Stop</button>  
+    <button id="strtBtn">Start</button>  
+
+    <h1>Reader</h1><br>
+    
+    <tit id="tit">
+      <c>故</c>
+      <c>事</c>
+    </tit>
+    <div id="text">
+      <c>从</c>
+      <c>前</c>
+      <c>有</c>
+      <c>一</c>
+      <c>个</c>
+      <c>坏</c>
+      <c>人。</c>
+      <c>他</c>
+      <c>想</c>
+      <c>吃</c>
+      <c>苹</c>
+      <c>果。</c>
+      <c>可</c>
+      <c>是</c>
+      <c>别</c>
+      <c>人</c>
+      <c>不</c>
+      <c>给</c>
+      <c>他</c>
+      <c>买</c>
+      <c>苹</c>
+      <c>果。</c>
+      <c>坏</c>
+      <c>人</c>
+      <c>很</c>
+      <c>生</c>
+      <c>气。</c>
+    </div>
+  </div>
+</div>
+</body>
+</html>

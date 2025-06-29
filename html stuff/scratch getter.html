@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webpage</title>
+    <meta charset="utf-8">
+    <style>
+      *{
+        box-sizing:border-box;
+      }
+      body,html{
+        width:100%;
+        height:100%;
+        margin:0;
+        padding:0;
+      }
+      #result{
+        width:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <pre id="result"></pre>
+    
+    <script src="scratch readouts.js"></script>
+    <script>
+      var list = ["hi","guys!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",""];
+      var el = createList(list, "my list", {width:150, height: 300, x: 100, y: 100});
+      document.body.appendChild(el);
+      
+      
+      async function getFromAPI(api, callback){
+        try{
+          callback(await (await fetch(api)).json())
+        }catch(e){
+          var script = document.createElement("script");
+          script.src = api;
+          script.style.display = "block";
+          document.body.appendChild(script);
+        }
+      }
+      // Example
+      /*"https://api.scratch.mit.edu/projects"*/
+      getFromAPI("https://api.scratch.mit.edu/health", function(data) {
+        document.getElementById("result").innerHTML = JSON.stringify(data);
+      })
+
+    </script>
+  </body>
+</html>

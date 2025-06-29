@@ -1,0 +1,43 @@
+#Nicey_AutoClick{
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  z-index:9999;
+  padding:8px;
+  background:lightgray;
+  display:inline;
+  margin-right:10px;
+}
+#Nicey_AutoClickClose{
+  float:right;
+  cursor:pointer;
+}
+#Nicey_AutoClick .optionStyle{
+  color:blue;
+  cursor:pointer;
+}
+
+#nicey{
+  z-index:99999;
+  position:fixed;
+  cursor:pointer;
+}
+#niceyCanvas{
+  background:transparent;
+  border:none;
+  image-reandering:pixelated;
+}
+#niceyMenu{
+  background:white;
+  border:1px solid gray;
+  position:fixed;
+}
+#niceyMenu div{
+  padding:10px;
+  border-top:1px solid gray;
+  cursor:pointer;
+}
+#niceyMenu div:hover{
+  background:blue;
+  color:white;
+}

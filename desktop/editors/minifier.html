@@ -1,0 +1,20 @@
+<!doctype html>
+<style>
+  textarea{
+    width:100%;
+    min-height:200px;
+  }
+</style>
+<textarea id="in"></textarea>
+<button onclick="doIt()">Do it</button><br>
+<textarea id="out"></textarea>
+<script>
+  var inp = document.querySelector("#in")
+  var otp = document.querySelector("#out")
+  function doIt(){
+    var str = inp.value || ""
+    str = str.replace(/(?<=\n)( |\t)*/g, "")
+    str = str.replace(/(?<=\n)\n*/g,"")
+    otp.value = str
+  }
+</script>

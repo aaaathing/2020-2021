@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>code editor</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+  <style>
+    body,html{
+      margin:0;
+      padding:0;
+      width:100%;
+      height:100%;
+    }
+    #editors{
+      height:100%;
+      width:50%;
+      float:left;
+      display:flex;
+      flex-direction:column;
+    }
+    #editors span.label{
+      background:black;
+      color:white;
+      border-top:2px solid lightgray;
+      padding-left:10px;
+    }
+    #htmleditor{
+      flex:1;
+      flex-grow:1;
+    }
+    #csseditor{
+      flex:2;
+      flex-grow:1;
+    }
+    #jseditor{
+      flex:3;
+      flex-grow:1;
+    }
+    #iframe{
+      height:100%;
+      width:calc(50% - 10px);
+      display:inline-block;
+    }
+    #container{
+      height:100%;
+      width:auto;
+      white-space:nowrap;
+      overflow:auto;
+    }
+    #container button{
+      padding:10px;
+      margin-left:50px;
+    }
+    table{border:1px solid black;}
+    td, th{
+      border:1px solid black;
+      padding:10px;
+    }
+  </style>
+</head>
+<body onload='ready()'>
+  <div id="container">
+    <div id="editors">
+      <span class="label">HTML</span>
+      <div id="htmleditor"></div>
+
+      <span class="label">CSS</span>
+      <div id="csseditor"></div>
+
+      <span class="label">JS</span>
+      <div id="jseditor"></div>
+    </div>
+    <iframe id="iframe" frameborder="0"></iframe><br><hr>
+
+    <table id="errors"></table>
+
+    <button onclick="save()">Save</button>
+  </div>
+
+  <script>
+function update(){
+  var idoc = document.getElementById('iframe').contentWindow.document;
+
+  var js = document.createElement("script");
+  js.innerHTML=jsEdit.getValue();
+  var css = document.createElement("style");
+  css.innerHTML=cssEdit.getValue();
+  
+  idoc.open();
+  idoc.write(htmlEdit.getValue());
+  if(idoc.body && js)idoc.body.appendChild(js);
+  if(idoc.head && css)idoc.head.appendChild(css);
+  idoc.close();
+
+  //error table
+  var table = document.getElementById("errors");
+  table.innerHTML="<b>HTML messages</b><br>";
+
+  //show html errors
+  var msgs = htmlEdit.getSession().getAnnotations();
+  var i;
+  for(i=0; i<msgs.length; i++){
+    var msg = msgs[i];
+    var tr=`
+<td>`+msg.type+`</td>
+<td>`+msg.text+`</td>
+<td>Row `+msg.row+` column `+msg.column+`</td>
+<td><a href="javascript:htmlEdit.gotoLine(`+(msg.row+1)+","+msg.column+`);htmlEdit.focus()">Show me where</a></td>
+    `
+    table.innerHTML+=tr;
+  }
+
+  //show css errors
+  table.innerHTML+="<b>CSS messages</b><br>";
+  var msgs = cssEdit.getSession().getAnnotations();
+  var i;
+  for(i=0; i<msgs.length; i++){
+    var msg = msgs[i];
+    var tr=`
+<td>`+msg.type+`</td>
+<td>`+msg.text+`</td>
+<td>Row `+msg.row+` column `+msg.column+`</td>
+<td><a href="javascript:cssEdit.gotoLine(`+(msg.row+1)+","+msg.column+`);cssEdit..focus()">Show me where</a></td>
+    `
+    table.innerHTML+=tr;
+  }
+
+  //show js errors
+  table.innerHTML+="<b>JS messages</b><br>";
+  var msgs = jsEdit.getSession().getAnnotations();
+  var i;
+  for(i=0; i<msgs.length; i++){
+    var msg = msgs[i];
+    var tr=`
+<td>`+msg.type+`</td>
+<td>`+msg.text+`</td>
+<td>Row `+msg.row+` column `+msg.column+`</td>
+<td><a href="javascript:jsEdit.gotoLine(`+(msg.row+1)+","+msg.column+`);jsEdit.focus()">Show me where</a></td>
+    `
+    table.innerHTML+=tr;
+  }
+}
+
+function setupEditor(name, elmntId, type){
+
+/*This function creates a global variable and 
+turn the element specified into an Ace Editor. 
+The variable's name will be the 'name' 
+argument's value. */
+
+  var editor = ace.edit(elmntId);
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/" + type);
+  if(type==="html"){
+editor.setValue(`<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webpage</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    
+  </body>
+</html>`,1); //1 = moves cursor to end
+}
+
+    editor.getSession().on('change', function() {
+      update();
+    });
+  
+  editor.setOptions({
+    fontSize: "15px",
+    showLineNumbers: true,
+    showGutter: true,
+    vScrollBarAlwaysVisible:true,
+    enableBasicAutocompletion: true, 
+    enableLiveAutocompletion: true
+  });
+
+  editor.setShowPrintMargin(true);
+  editor.setBehavioursEnabled(true);
+
+  window[name]=editor;
+}
+  function ready(){
+    setupEditor("htmlEdit", "htmleditor", "html");
+    setupEditor("cssEdit", "csseditor", "css");
+    setupEditor("jsEdit", "jseditor", "javascript");
+    update();
+  }
+  function save(){
+    var value = "<!DOCTYPE html>\n"+document.getElementById("iframe").contentWindow.document.documentElement.outerHTML;
+    localStorage.setItem("htmlEditor", value);
+  }
+  </script>
+</body>
+</html>

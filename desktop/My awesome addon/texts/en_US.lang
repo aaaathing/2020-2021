@@ -1,0 +1,34 @@
+##menu stuff
+menu.returnToGame=i want to keep playing
+pauseScreen.back=i want to keep playing
+menu.returnToMenu=save & go away to title
+menu.quit=save & go away
+pauseScreen.quit=save & go away
+multiplayer.playersSleeping=there are %s players sleeping. there are %s players in total
+multiplayer.stopSleeping=i wanna get out of bed
+multiplayer.player.left=%s went away
+multiplayer.player.joined=%s came
+
+##  Blocks and items
+##ground blocks
+tile.grass.name=A block of grass
+tile.dirt.default.name=Dirty dirt
+tile.dirt.name=Dirty dirt
+tile.stone.stone.name=Cube of rock
+tile.cobblestone.name=Pavement
+
+##wood blocks
+tile.planks.acacia.name=Savanah boards
+tile.planks.big_oak.name=Boards of the dark oak forest
+tile.planks.birch.name=Birch Boards
+tile.planks.jungle.name=Forest boards
+tile.planks.name=boards, gluger
+tile.planks.oak.name=Boards of oak | hi dude
+tile.planks.spruce.name=Spruce wood panels
+tile.wooden_slab.acacia.name=Acacia wood boards slab
+tile.wooden_slab.big_oak.name=Dark oak slab
+tile.wooden_slab.birch.name=A piece of birch wood
+tile.wooden_slab.jungle.name=Jungle Wood Plate
+tile.wooden_slab.name=slab of wood | luglar
+tile.wooden_slab.oak.name=Oak slabs
+tile.wooden_slab.spruce.name=Christmas tree board

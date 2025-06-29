@@ -1,0 +1,196 @@
+#navigation, .menu-bar_menu-bar_JcuHF{
+  background:#333 !important;
+}
+#view{
+  background:#111 !important;
+}
+
+/*Font colors*/
+h1, h2, h3, h4, h5, p{
+  color:lightgray;/*not important*/
+}
+
+.box p{
+  color:white !important;
+}
+.box h1, .box h2, .box h3, .box h4, .box h5, .box h6{
+  color:lightgray !important;
+}
+
+
+/*HOME PAGE*/
+.box .box-header{
+  border:#111 !important;
+  background:#222 !important;
+}
+.box, .box-content{
+  background:#222 !important;
+}
+.box span{
+  color:lightgray !important;
+}
+
+/*Thing when your not signed in*/
+.intro-banner .intro-subnav{
+  background:#2a2a2f !important;
+}
+.intro-banner .intro-subnav .subnav-button{
+  #26579c
+}
+
+
+
+/*IDEAS PAGE*/
+
+
+
+
+/*PROJECTS AND EDITOR*/
+.credit-text span{
+  color:gray !important;
+}
+/*The instuctions and notes and credits*/
+.project-textlabel{
+  color:lightgray !important;
+}
+.inplace-textarea{
+  background:black !important;
+  color:lightgray !important;
+}
+.preview .project-description{
+  color:lightgray;
+}
+
+/*Title for project*/
+.inplace-input{
+  color:white !important;
+}
+.preview .project-title.no-edit{
+  color:lightgray;
+}
+
+/*Buttons*/
+.see-inside-button{
+  background:#333 !important;
+  border:#111 !important;
+}
+
+/*loves, favorites, remixes...*/
+.stats{
+  color:lightgray !important;
+}
+
+/*Comments*/
+.comment .comment-body .comment-bubble{
+  background:black !important;
+}
+.comment .comment-body .comment-bubble::before{
+  background:black !important;
+}
+.comment .comment-body .comment-content{
+  color:lightgray !important;
+}
+
+/*fullscreen*/
+.stage-wrapper_full-screen_2hjMb{
+  background:#111 !important;
+}
+.stage-header_stage-header-wrapper-overlay_5vfJa{
+  background:#111 !important;
+}
+
+/*Editor*/
+/*code area*/
+*[id^=blocklyGridPattern] .backgroundForThisPattern{
+  fill:#1e1e1e;
+}
+/*block menu*/
+.blocklyFlyoutBackground{
+  fill:#111 !important;
+}
+.blocklyToolboxDiv, .scratchCategoryMenuItem{
+  background:#111 !important;
+  color:lightgray !important;
+}
+.scratchCategoryMenuItem.categorySelected{
+  background:rgb(30,30,30) !important;
+}
+.blocklyFlyoutLabelText{
+  fill:#ccc !important;
+}
+/*seperating lines*/
+.gui_body-wrapper_-N0sA{
+  background:#111 !important;
+}
+/*code costume sound tabs*/
+.gui_tab_27Unf {
+  background: rgb(46,46,46) !important;
+  color:rgb(238,238,238) !important;
+}
+.gui_tab_27Unf.gui_is-selected_sHAiu{
+  background:rgb(30,30,30) !important;
+}
+/*place under stage*/
+.sprite-info_sprite-info_3EyZh, .sprite-selector_scroll-wrapper_3NNnc{
+  background:rgb(17,17,17) !important;
+}
+.sprite-selector_sprite-selector_2KgCX{
+  border-color:black !important;
+}
+/*sprite info*/
+span.label_input-label_3KjCa{
+  color:rgb(238,238,238) !important;
+}
+span.label_input-label-secondary_3QDNV{
+  color:rgb(238,238,238) !important;
+}
+.sprite-info_row_1om5V input{
+  background:rgb(30,30,30) !important;
+  color:rgb(238,238,238) !important;
+  border-color:rgb(46,46,46) !important;
+}
+/*stage*/
+.stage-selector_stage-selector_3oWOr, .stage-selector_header_2GVr1{
+  background:rgb(30,30,30) !important;
+  
+}
+.stage-selector_stage-selector_3oWOr span,
+.stage-selector_header_2GVr1 span,
+.stage-selector_count_2QK7D{
+  color:rgb(238,238,238) !important;
+}
+
+
+
+/*SEARCH*/
+/*thing that says: Search*/
+.outer .title-banner.masthead{
+  background:#347 !important;
+}
+
+/*projects and studios buttons*/
+.tab-background, .sub-nav{
+  background:#111 !important;
+}
+.sub-nav a span{
+  color:lightgray !important;
+}
+
+/*Projects*/
+#projectBox, #projectBox .grid{
+  background:#111 !important;
+}
+.grid .thumbnail.project{
+  background:#333 !important;
+}
+/*Creator of project*/
+.grid .thumbnail .thumbnail-info .thumbnail-title .thumbnail-creator a{
+  color:lightgray !important;
+}
+
+
+
+
+#footer{
+  background:#222 !important;
+}

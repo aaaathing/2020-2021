@@ -1,0 +1,43 @@
+{
+  "manifest_version":3,
+  "name":"Nicey - Your Virtual Helper",
+  "version":"0.1",
+  "description":"This is Nicey. he is very nice. You don't want to call him meany or you'd be in trouble!",
+  "icons":{
+    "148":"icon.png",
+    "128":"icon128.png",
+    "48":"icon48.png"
+  },
+  "permissions":[
+    "storage",
+    "activeTab",
+    "declarativeContent"
+  ],
+  "host_permissions":[
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [{
+    "resources":[
+      "nicey/head.png",
+      "nicey/body.png",
+      "nicey/pants.png",
+      "nicey/shoes.png",
+      "app/blocked.html"
+    ],
+    "matches":["<all_urls>"]
+  }],
+  "background":{
+    "service_worker":"background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": [ "content.css" ]
+    }
+  ],
+  "action":{
+    "default_popup":"index.html",
+    "default_title" :"Nicey"
+  }
+}

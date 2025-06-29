@@ -1,0 +1,34 @@
+<!-- From thingmaker ka account. https://www.khanacademy.org/profile/kaid_30538885139931647243460 -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        <style>
+            textarea{
+                width:100%;
+                height:100px;
+            }
+        </style>
+    </head>
+    <body>
+look at stuff
+<br>
+<textarea></textarea><button onclick="doIt()">do something</button>
+<script type>
+    var el = document.querySelector("textarea")
+    function doIt(){
+        var str = el.value
+        var obj = Object.constructor("return "+str)()
+        var json = JSON.stringify(obj)
+        var code = `fetch("https://www.khanacademy.org/api/internal/scratchpads/5005730264432640?client_dt=2021-10-18T16%3A35%3A42-07%3A00&lang=en&_=211018-1059-1be6b661cd54_1634600142477",
+  "body": "__JSONHERE__",
+  "method": "PUT",
+  "mode": "cors",
+  "credentials": "include"
+});`
+        el.value = code.replace("__JSONHERE__",json)
+    }
+</script>
+    </body>
+</html>

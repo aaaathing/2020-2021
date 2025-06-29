@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<h1>make html safe</h1>
+<p>remove scripts and other dangerous stuff from html</p>
+<textarea id="input"></textarea>
+<pre id="output"></pre>
+<button onclick="document.getElementById('output').textContent=format(document.getElementById('input').value)">do it</button>
+<script>
+  function formatGetAttributesInString(str){
+    var arr = []
+    var attribute = "", value = ""
+    var inQuotes = false, quoteType = null
+    var isValue = false
+    for(var l of str){
+      if((!inQuotes || l === quoteType) && (l === "'" || l === '"')){
+        inQuotes = !inQuotes
+        quoteType = l
+        if(!inQuotes){
+          if(attribute) arr.push([attribute.toLowerCase(),value.toLowerCase()])
+          attribute = value = ""
+          isValue = false
+          quoteType = null
+        }
+      }else if(!inQuotes && l === " "){
+        if(attribute) arr.push([attribute.toLowerCase(),value.toLowerCase()])
+        attribute = value = ""
+        isValue = false
+        quoteType = null
+      }else if(!inQuotes && !(isValue && value) && l === "="){
+        isValue = true
+      }else{
+        if(isValue) value += l
+        else attribute += l
+      }
+    }
+    if(attribute) arr.push([attribute.toLowerCase(),value.toLowerCase()])
+    return arr
+  }
+  /*function formatGetElementsInString(str){
+    if(!str) return []
+    var elements = []
+    while(str.length){
+      var i = str.indexOf("<")
+      var j = str.indexOf(">")
+      if(i !== 0 && i !== -1){
+        elements.push(str.substring(0,i))
+        str = str.substring(i,str.length)
+      }else if(i !== -1 && j !== -1){
+        var k = str.indexOf(" ") //where attributes start
+        if(k > j) k = -1
+        var l = k === -1 ? j : k
+        k = k === -1 ? j : k+1
+        var tagName = str.substring(i+1,l).toLowerCase()
+        var attributes = formatGetAttributesInString(str.substring(k,j))
+        var inner = ""
+        if(!formatUnclosedElements.includes(tagName)){
+          var i2 = str.indexOf("</"+tagName+">")
+          var j2 = i2+2+tagName.length
+          if(i2 !== -1){
+            inner = str.substring(j+1,i2)
+            str = str.substring(j2+1,str.length) //stuff after this element
+          }else{
+            inner = str.substring(j+1,str.length)
+            str = ""
+          }
+        }else{
+          str = str.substring(j+1,str.length)
+        }
+        elements.push({tagName,elements:formatGetElementsInString(inner),attributes})
+      }else{
+        elements.push(str)
+        str = ""
+      }
+    }
+    return elements
+  }*/ //old one doesn't work with: <p><p></p></p>
+  function formatGetElementsInString(str){
+    var main = []
+    var element = {elements:main}
+    while(str){
+      var isText = true
+      if(str[0] === "<"){
+        var i = 0
+        var j = str.indexOf(">")
+        if(j === -1){
+          isText = true
+        }else if(str[i+1] === "/"){
+          var tagName = str.substring(i+2,j).toLowerCase()
+          if(tagName === element.tagName){
+            element = element.parent
+            isText = false
+          }
+        }else if(!formatUnparsedElements.includes(element.tagName)){
+          var preclose = (str[j-1] === "/") ? 1 : 0
+          var attributeStart = str.indexOf(" ")
+          if(attributeStart > j) attributeStart = -1
+          var tagEnd = attributeStart === -1 ? j-preclose : attributeStart+i
+          attributeStart = attributeStart === -1 ? j-preclose : attributeStart+i+1
+          var tagName = str.substring(i+1,tagEnd).toLowerCase()
+          var parent = element
+          var attributes = formatGetAttributesInString(str.substring(attributeStart,j-preclose))
+          element = {tagName,attributes,elements:[],parent}
+          parent.elements.push(element)
+          if(formatUnclosedElements.includes(tagName) || preclose){
+            element = parent
+          }
+          isText = false
+        }
+        if(!isText) str = str.substring(j+1,str.length)
+      }
+      if(isText){
+        var i = str.substring(1,str.length).indexOf("<")
+        if(i === -1) i = str.length
+        else i++
+        let str2 = str.substring(0,i)
+        if(!formatUnparsedElements.includes(element.tagName)) str2 = str2.replace(/</g,"&lt;").replace(/>/g,"&gt;")
+        element.elements.push(str2)
+        str = str.substring(i,str.length)
+      }
+    }
+    return main
+  }
+  var formatSafeElements = ["h1","h2","h3","h4","h5","h6","p","img","video","audio","a","ul","ol","li","pre","code","br","image-recipe","mc-recipe","font","b","i","big","center","small","span","strike","strong","sub","sup","table","tbody","td","tfoot","th","thead","tr","hr"]
+  var formatSafeAttributes = ["align","alt","width","height","href","src","media","title","style"]
+  var formatUnclosedElements = ["img","br","hr"]
+  var formatUnparsedElements = ["pre","code"]
+  function formatConvertToSafeHtml(elements,addTo){
+    for(var e of elements){
+      if(typeof e === "string"){
+        addTo.insertAdjacentHTML("beforeend",e)
+        continue
+      }else if(e instanceof HTMLElement){
+				addTo.appendChild(e)
+				continue
+			}
+      if(!formatSafeElements.includes(e.tagName)) e.tagName = "span"
+			let element = document.createElement(e.tagName)
+			addTo.appendChild(element)
+			for(let a of e.attributes){
+				if(!formatSafeAttributes.includes(a[0])) continue
+				element.setAttribute(a[0],a[1])
+			}
+			if(formatUnclosedElements.includes(e.tagName)) continue
+      formatConvertToSafeHtml(e.elements,element)
+      /*str += "<"+e.tagName
+      if(e.attributes.length) for(var a of e.attributes){
+        if(!formatSafeAttributes.includes(a[0])) continue
+        str += " "+a[0]
+        if(a[1]) str+=`="${a[1].replace(/"/g,"&quot;")}"`
+      }
+      str += ">"
+      if(formatUnclosedElements.includes(e.tagName)) continue
+      str += formatConvertToSafeHtml(e.elements)
+      str += `</${e.tagName}>`*/
+    }
+    return addTo
+  }
+  function format(str){
+    var e = formatGetElementsInString(str)
+    console.log(e)
+    return formatConvertToSafeHtml(e,document.createElement("div")).innerHTML
+  }
+</script>

@@ -1,0 +1,17 @@
+<!doctype html>
+<style>
+  textarea{
+    width:100%;
+    min-height:200px;
+  }
+</style>
+<input id="in">
+<button onclick="doIt()">Do it</button><br>
+<pre id="out"></pre>
+<script>
+  function doIt(){
+    fetch("https://projects.scratch.mit.edu/"+document.querySelector("#in").value).then(r => r.json()).then(r => {
+      document.querySelector("#out").textContent = JSON.stringify(r, null, 2)
+    })
+  }
+</script>
